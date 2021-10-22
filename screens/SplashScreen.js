@@ -1,7 +1,11 @@
 import React from "react";
 
 const SplashScreen = () => {
-  return <div></div>;
+  return (
+    <View>
+      <Text>SplashScreenyarn add @react-navigation/native</Text>
+    </View>
+  );
 };
 
 export default SplashScreen;
