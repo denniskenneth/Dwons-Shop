@@ -18,11 +18,17 @@ import {
   RightIcon,
   StyledBtn,
   BtnText,
+  MsgBox,
+  Line,
+  ExtraText,
+  ExtraView,
+  TextLink,
+  TextLinkContent,
 } from '../components/styles';
 // Icns
-import { Octicons, Ionicons } from '@expo/vector-icons';
+import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons';
 // colors
-const { brand, darklight } = Colors;
+const { brand, darklight, primary } = Colors;
 
 const LoginScreen = () => {
   const [hidepassword, setHidePassword] = useState(true);
@@ -68,10 +74,21 @@ const LoginScreen = () => {
                 hidepassword={hidepassword}
                 setHidePassword={setHidePassword}
               />
-
+              <MsgBox>...</MsgBox>
               <StyledBtn onPress={handleSubmit}>
                 <BtnText>Login</BtnText>
               </StyledBtn>
+              <Line />
+              <StyledBtn google={true} onPress={handleSubmit}>
+                <Fontisto name='google' size={25} color={primary} />
+                <BtnText google={true}>Sign in with Google</BtnText>
+              </StyledBtn>
+              <ExtraView>
+                <ExtraText>Don't have an acount already?</ExtraText>
+                <TextLink>
+                  <TextLinkContent>Signup</TextLinkContent>
+                </TextLink>
+              </ExtraView>
             </StyledFormArea>
           )}
         </Formik>

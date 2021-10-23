@@ -7,8 +7,9 @@ import React from 'react';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SplashScreen from './screens/SplashScreen';
+import SignupScreen from './screens/SignupScreen';
 
 // const Stack = createNativeStackNavigator();
 export default function App() {
-  return <LoginScreen />;
+  return <SignupScreen />; //<LoginScreen />;
 }
