@@ -6,7 +6,7 @@ import React from 'react';
 // IMPORT SCREENS
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
-import SplashScreen from './screens/SplashScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import SignupScreen from './screens/SignupScreen';
 
 // const Stack = createNativeStackNavigator();
