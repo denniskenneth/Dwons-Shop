@@ -35,7 +35,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 // Keyboard avoiding view
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 
-const SignupScreen = () => {
+const SignupScreen = ({ navigation }) => {
   const [hidepassword, setHidePassword] = useState(true);
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState('date');
@@ -89,6 +89,7 @@ const SignupScreen = () => {
             }}
             onSubmit={(values) => {
               console.log(`logged in with ${values}`);
+              navigation.navigate('Welcome');
             }}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -156,13 +157,15 @@ const SignupScreen = () => {
                 />
                 <MsgBox>...</MsgBox>
                 <StyledBtn onPress={handleSubmit}>
-                  <BtnText>Login</BtnText>
+                  <BtnText onPress={() => navigation.navigate('Welcome')}>
+                    Signup
+                  </BtnText>
                 </StyledBtn>
                 <Line />
 
                 <ExtraView>
-                  <ExtraText>Already have an account?</ExtraText>
-                  <TextLink>
+                  <ExtraText>Already have an account? </ExtraText>
+                  <TextLink onPress={() => navigation.navigate('Login')}>
                     <TextLinkContent>Login</TextLinkContent>
                   </TextLink>
                 </ExtraView>

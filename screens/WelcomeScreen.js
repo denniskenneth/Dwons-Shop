@@ -15,7 +15,7 @@ import {
   Avatar,
 } from '../components/styles';
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({ navigation }) => {
   return (
     <>
       <StatusBar style='dark' />
@@ -30,7 +30,7 @@ const WelcomeScreen = () => {
               source={require('../assets/img/imgLogo.png')}
             />
             <Line />
-            <StyledBtn onPress={() => {}}>
+            <StyledBtn onPress={() => navigation.navigate('Login')}>
               <BtnText>Logout</BtnText>
             </StyledBtn>
           </StyledFormArea>
