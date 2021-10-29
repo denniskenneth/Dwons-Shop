@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 // IMPORT CUSTOM COMPONENTS
@@ -34,9 +34,46 @@ const { brand, darklight, primary } = Colors;
 
 // Keyboard avoiding view
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import axios from 'axios';
 
 const LoginScreen = ({ navigation }) => {
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
   const [hidepassword, setHidePassword] = useState(true);
+  const [message, setMessage] = useState();
+  const [messageType, setMessageType] = useState();
+
+  const handleLogin = (credentials, setSubmitting) => {
+    handleMessage(null);
+    const url = 'https://warm-eyrie-98820.herokuapp.com/user/signin';
+
+    axios
+      .post(url, credentials)
+      .then((response) => {
+        const result = response.data;
+        const { message, status, data } = result;
+
+        if (status !== 'SUCCESS') {
+          handleMessage(message, status);
+        } else {
+          navigation.navigate('Welcome', { ...data[0] });
+        }
+        setSubmitting(false);
+      })
+      .catch((err) => {
+        console.log(err.JSON());
+        setSubmitting(false);
+        handleMessage(
+          'An error occured. Check thy network connect and try again'
+        );
+      });
+  };
+
+  const handleMessage = (message, type = 'FAILED') => {
+    setMessage(message);
+    setMessageType(type);
+  };
+
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -50,12 +87,23 @@ const LoginScreen = ({ navigation }) => {
           <SubTitle>Account Login</SubTitle>
           <Formik
             initialValues={{ email: '', password: '' }}
-            onSubmit={(values) => {
-              console.log(`logged in with ${values}`);
-              navigation.navigate('Welcome');
+            onSubmit={(values, { setSubmitting }) => {
+              if (values.email == '' || values.password == '') {
+                handleMessage('Please fill all the fields');
+                setSubmitting(false);
+              } else {
+                // values.email.toLowerCase();
+                handleLogin(values, setSubmitting);
+              }
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              isSubmitting,
+            }) => (
               <StyledFormArea>
                 <CustomTextInput
                   label='Email Address'
@@ -64,7 +112,8 @@ const LoginScreen = ({ navigation }) => {
                   placeholderTextColor={darklight}
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
-                  value={values.email}
+                  value={values.email.toLowerCase()}
+                  onChangeText={handleChange('email')}
                   keyboardType='email-address'
                 />
 
@@ -81,10 +130,17 @@ const LoginScreen = ({ navigation }) => {
                   hidepassword={hidepassword}
                   setHidePassword={setHidePassword}
                 />
-                <MsgBox>...</MsgBox>
-                <StyledBtn onPress={handleSubmit}>
-                  <BtnText>Login</BtnText>
-                </StyledBtn>
+                <MsgBox type={messageType}>{message}</MsgBox>
+                {!isSubmitting && (
+                  <StyledBtn onPress={handleSubmit}>
+                    <BtnText>Login</BtnText>
+                  </StyledBtn>
+                )}
+                {isSubmitting && (
+                  <StyledBtn disabled={true}>
+                    <ActivityIndicator size='large' color={primary} />
+                  </StyledBtn>
+                )}
                 <Line />
                 <StyledBtn google={true} onPress={handleSubmit}>
                   <Fontisto name='google' size={25} color={primary} />
