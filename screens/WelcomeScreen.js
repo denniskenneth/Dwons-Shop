@@ -15,15 +15,18 @@ import {
   Avatar,
 } from '../components/styles';
 
-const WelcomeScreen = ({ navigation }) => {
+const WelcomeScreen = ({ navigation, route }) => {
+  const { name, email } = route.params;
   return (
     <>
       <StatusBar style='dark' />
       <InnerContainer>
         <WelcomeContainer>
-          <PageTitle welcome={true}>Welcome John</PageTitle>
-          <SubTitle welcome={true}>John Doe</SubTitle>
-          <SubTitle welcome={true}>JohnDoe@example.com</SubTitle>
+          <PageTitle welcome={true}>
+            Welcome {name.charAt(0).toUpperCase() + name.slice(1) || 'John'}
+          </PageTitle>
+          <SubTitle welcome={true}>{name || 'John Doe'}</SubTitle>
+          <SubTitle welcome={true}>{email || 'JohnDoe@example.com'}</SubTitle>
           <StyledFormArea>
             <Avatar
               resizeMode='cover'
