@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Platform } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Platform,
+  ActivityIndicator,
+} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 // IMPORT CUSTOM COMPONENTS
@@ -35,11 +40,19 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 // Keyboard avoiding view
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 
+// AXOIS IMPORT
+import axios from 'axios';
+
 const SignupScreen = ({ navigation }) => {
   const [hidepassword, setHidePassword] = useState(true);
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState('date');
   const [date, setDate] = useState(new Date(2000, 1, 1));
+
+  // MESSAGE STATE
+  const [message, setMessage] = useState();
+  const [messageType, setMessageType] = useState();
+
   //   user Date of Birth
   //   const [dob, setDob] = useState();
 
@@ -58,6 +71,38 @@ const SignupScreen = ({ navigation }) => {
 
   const showDatePicker = () => {
     showMode('date');
+  };
+
+  // FORM HANDLER
+  const handleSignup = (credentials, setSubmitting) => {
+    handleMessage(null);
+    const url = 'https://warm-eyrie-98820.herokuapp.com/user/signup';
+
+    axios
+      .post(url, credentials)
+      .then((response) => {
+        const result = response.data;
+        const { message, status, data } = result;
+
+        if (status !== 'SUCCESS') {
+          handleMessage(message, status);
+        } else {
+          navigation.navigate('Welcome', { ...data });
+        }
+        setSubmitting(false);
+      })
+      .catch((err) => {
+        console.log(err.JSON());
+        setSubmitting(false);
+        handleMessage(
+          'An error occured. Check thy network connect and try again'
+        );
+      });
+  };
+
+  const handleMessage = (message, type = 'FAILED') => {
+    setMessage(message);
+    setMessageType(type);
   };
 
   return (
@@ -81,27 +126,48 @@ const SignupScreen = ({ navigation }) => {
 
           <Formik
             initialValues={{
-              fullName: '',
+              name: '',
               email: '',
               dateOfBirth: '',
               password: '',
               confirmPassword: '',
             }}
-            onSubmit={(values) => {
-              console.log(`logged in with ${values}`);
-              navigation.navigate('Welcome');
+            onSubmit={(values, { setSubmitting }) => {
+              values = { ...values, dateOfBirth: date };
+              if (
+                values.email == '' ||
+                values.password == '' ||
+                values.name == '' ||
+                values.dateOfBirth == '' ||
+                values.confirmPassword == ''
+              ) {
+                handleMessage('Please fill all the fields');
+                setSubmitting(false);
+              } else if (values.password !== values.confirmPassword) {
+                handleMessage('Passwprds do not match');
+                setSubmitting(false);
+              } else {
+                // values.email.toLowerCase();
+                handleSignup(values, setSubmitting);
+              }
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              isSubmitting,
+            }) => (
               <StyledFormArea>
                 <CustomTextInput
                   label='Full Name'
                   icon='person'
                   placeholder='John Doe'
                   placeholderTextColor={darklight}
-                  onChangeText={handleChange('fullName')}
-                  onBlur={handleBlur('fullName')}
-                  value={values.fullName}
+                  onChangeText={handleChange('name')}
+                  onBlur={handleBlur('name')}
+                  value={values.name}
                 />
 
                 <CustomTextInput
@@ -111,7 +177,7 @@ const SignupScreen = ({ navigation }) => {
                   placeholderTextColor={darklight}
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
-                  value={values.email}
+                  value={values.email.toLowerCase()}
                   keyboardType='email-address'
                 />
 
@@ -155,12 +221,20 @@ const SignupScreen = ({ navigation }) => {
                   hidepassword={hidepassword}
                   setHidePassword={setHidePassword}
                 />
-                <MsgBox>...</MsgBox>
-                <StyledBtn onPress={handleSubmit}>
-                  <BtnText onPress={() => navigation.navigate('Welcome')}>
-                    Signup
-                  </BtnText>
-                </StyledBtn>
+                <MsgBox type={messageType}>{message}</MsgBox>
+
+                {!isSubmitting && (
+                  <StyledBtn onPress={handleSubmit}>
+                    <BtnText onPress={() => navigation.navigate('Welcome')}>
+                      Signup
+                    </BtnText>
+                  </StyledBtn>
+                )}
+                {isSubmitting && (
+                  <StyledBtn disabled={true}>
+                    <ActivityIndicator size='large' color={primary} />
+                  </StyledBtn>
+                )}
                 <Line />
 
                 <ExtraView>
