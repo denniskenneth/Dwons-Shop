@@ -20,7 +20,7 @@ const { primary, secondary, brand, darklight, tertiary, green } = Colors;
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.headerSafeArea}>
       <View style={styles.header}>
@@ -28,18 +28,11 @@ const HomeScreen = () => {
           <Text style={styles.welcomeTxt}>Welcome to</Text>
           <Text style={styles.shopTxt}>Dwon's Shop</Text>
         </View>
-        <FontAwesome name='shopping-cart' size={24} color='black' />
+        <FontAwesome name='shopping-cart' size={28} color='black' />
       </View>
-      <View
-        style={{ marginTop: 30, flexDirection: 'row', paddingVertical: 10 }}
-      >
+      <View style={{ marginTop: 30, flexDirection: 'row' }}>
         <View style={styles.searchContainer}>
-          <FontAwesome
-            name='search'
-            size={25}
-            style={{ marginLeft: 20 }}
-            color='black'
-          />
+          <FontAwesome name='search' size={25} style={{ marginLeft: 20 }} />
           <TextInput
             placeholder='Search'
             style={styles.searchInput}
@@ -50,7 +43,14 @@ const HomeScreen = () => {
         </View>
       </View>
       {/* <ProductCard /> */}
+
       <FlatList
+        columnWrapperStyle={{ justifyContent: 'space-around' }}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          marginTop: 10,
+          paddingBottom: 50,
+        }}
         numColumns={2}
         data={plants}
         renderItem={({ item }) => <ProductCard plant={item} />}
@@ -62,11 +62,11 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   headerSafeArea: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     backgroundColor: primary,
   },
   header: {
-    marginTop: 20,
+    marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 5,

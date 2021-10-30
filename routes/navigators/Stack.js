@@ -8,6 +8,7 @@ import LoginScreen from '../../screens/LoginScreen';
 import WelcomeScreen from '../../screens/WelcomeScreen';
 import SignupScreen from '../../screens/SignupScreen';
 import HomeScreen from '../../screens/HomeScreen';
+import ProductDetail from './../../screens/Dyna/ProductDetail';
 
 import { Colors } from '../../components/styles';
 
@@ -41,6 +42,14 @@ const Stack = () => {
         <StackNavigator.Screen name='Signup' component={SignupScreen} />
         <StackNavigator.Screen name='Welcome' component={WelcomeScreen} />
         <StackNavigator.Screen name='Home' component={HomeScreen} />
+        <StackNavigator.Screen
+          name='Detail'
+          component={ProductDetail}
+          options={{
+            // headerLeft: () => <></>,
+            headerShown: false,
+          }}
+        />
       </StackNavigator.Navigator>
     </NavigationContainer>
   );

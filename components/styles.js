@@ -1,5 +1,12 @@
 import styled from 'styled-components';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import Constants from 'expo-constants';
 
 // COLOR DEFINITIONS
@@ -11,15 +18,17 @@ export const Colors = {
   brand: '#228822',
   green: '#4A2288',
   red: '#EF4444',
+  black: '#000',
 };
 
+const screenHeight = Dimensions.get('window').height;
 const StatusBarHeight = Constants.statusBarHeight;
 // padding-bottom: ${StatusBarHeight + 30}px;
 const { primary, secondary, tertiary, darklight, brand, green, red } = Colors;
 
 export const StyledContainer = styled.View`
   flex: 1;
-  height: 100%;
+  height: ${screenHeight}px;
   padding: 25px;
   padding-top: ${StatusBarHeight + 30}px;
 
