@@ -54,7 +54,7 @@ const ProductDetail = ({ navigation, route }) => {
         </View>
         <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>About</Text>
-          <Text>{plant.about}</Text>
+          <Text style={{ color: 'grep' }}>{plant.about}</Text>
         </View>
       </View>
     </SafeAreaView>
