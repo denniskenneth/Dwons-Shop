@@ -9,6 +9,7 @@ import WelcomeScreen from '../../screens/WelcomeScreen';
 import SignupScreen from '../../screens/SignupScreen';
 import HomeScreen from '../../screens/HomeScreen';
 import ProductDetail from './../../screens/Dyna/ProductDetail';
+import CartScreen from './../../screens/Dyna/CartScreen';
 
 import { Colors } from '../../components/styles';
 
@@ -50,6 +51,7 @@ const Stack = () => {
             headerShown: false,
           }}
         />
+        <StackNavigator.Screen name='Cart' component={CartScreen} />
       </StackNavigator.Navigator>
     </NavigationContainer>
   );

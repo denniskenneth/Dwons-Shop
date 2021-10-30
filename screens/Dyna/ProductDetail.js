@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from 'react-native';
 
 // COLORS IMPORT
 import { Colors } from './../../components/styles';
@@ -9,6 +16,8 @@ const { primary, secondary, brand, black, tertiary, darklight } = Colors;
 // ICONS IMPORT
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+
+const screenHeight = Dimensions.get('window').height;
 
 const ProductDetail = ({ navigation, route }) => {
   const plant = route.params;
@@ -22,7 +31,12 @@ const ProductDetail = ({ navigation, route }) => {
           color='black'
           onPress={() => navigation.goBack()}
         />
-        <FontAwesome name='shopping-cart' size={28} color='black' />
+        <FontAwesome
+          name='shopping-cart'
+          size={28}
+          color='black'
+          onPress={() => navigation.navigate('Cart')}
+        />
       </View>
       <View style={styles.imgContainer}>
         <Image source={plant.img} style={{ resizeMode: 'contain', flex: 1 }} />
@@ -54,7 +68,48 @@ const ProductDetail = ({ navigation, route }) => {
         </View>
         <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>About</Text>
-          <Text style={{ color: 'grep' }}>{plant.about}</Text>
+          <Text
+            style={{
+              color: '#404040',
+              fontSize: 16,
+              lineHeight: 22,
+              marginTop: 10,
+            }}
+          >
+            {plant.about}
+          </Text>
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={styles.borderBtn}>
+                <Text style={styles.borderBtnTxt}>-</Text>
+              </View>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginHorizontal: 10,
+                  fontWeight: 'bold',
+                }}
+              >
+                1
+              </Text>
+              <View style={styles.borderBtn}>
+                <Text style={styles.borderBtnTxt}>+</Text>
+              </View>
+            </View>
+            <View style={styles.buyBtn}>
+              <Text
+                style={{ color: primary, fontSize: 18, fontWeight: 'bold' }}
+              >
+                Buy
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -65,6 +120,7 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
     backgroundColor: primary,
+    // height: screenHeight,
   },
   header: {
     paddingHorizontal: 20,
@@ -106,6 +162,27 @@ const styles = StyleSheet.create({
     color: primary,
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  borderBtn: {
+    borderColor: '#404040',
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 40,
+    width: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  borderBtnTxt: {
+    fontWeight: 'bold',
+    fontSize: 28,
+  },
+  buyBtn: {
+    width: 150,
+    height: 50,
+    backgroundColor: brand,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
   },
 });
 
