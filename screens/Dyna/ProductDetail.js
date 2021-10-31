@@ -39,75 +39,106 @@ const ProductDetail = ({ navigation, route }) => {
         />
       </View>
       <View style={styles.imgContainer}>
-        <Image source={plant.img} style={{ resizeMode: 'contain', flex: 1 }} />
+        <Image
+          source={plant.img}
+          style={{ resizeMode: 'contain', height: 350, width: 350 }}
+        />
       </View>
-      <View style={styles.detailsContainer}>
+      <View>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-            marginLeft: 20,
-          }}
-        >
-          <View style={styles.line} />
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Best Choice</Text>
-        </View>
-        <View
-          style={{
-            marginLeft: 20,
-            marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            backgroundColor: 'gold',
+            width: 180,
+            height: 30,
             alignItems: 'center',
+            justifyContent: 'center',
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            flexDirection: 'row',
+            marginLeft: 50,
           }}
         >
-          <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{plant.name}</Text>
-          <View style={styles.priceTag}>
-            <Text style={styles.priceTxt}>${plant.price}</Text>
-          </View>
-        </View>
-        <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>About</Text>
-          <Text
+          <FontAwesome
+            name='star'
+            size={14}
+            color='black'
             style={{
-              color: '#404040',
-              fontSize: 16,
-              lineHeight: 22,
-              marginTop: 10,
+              marginRight: 5,
             }}
-          >
-            {plant.about}
+          />
+          <FontAwesome
+            name='star'
+            size={14}
+            color='black'
+            style={{
+              marginRight: 5,
+            }}
+          />
+          <FontAwesome name='star' size={14} color='black' />
+          <Text style={{ fontSize: 16, fontWeight: '500', marginLeft: 10 }}>
+            Best Chioce
           </Text>
+        </View>
+        <View style={styles.detailsContainer}>
           <View
             style={{
+              marginLeft: 20,
               marginTop: 20,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={styles.borderBtn}>
-                <Text style={styles.borderBtnTxt}>-</Text>
-              </View>
-              <Text
-                style={{
-                  fontSize: 20,
-                  marginHorizontal: 10,
-                  fontWeight: 'bold',
-                }}
-              >
-                1
-              </Text>
-              <View style={styles.borderBtn}>
-                <Text style={styles.borderBtnTxt}>+</Text>
-              </View>
+            <Text style={{ fontSize: 22, fontWeight: 'bold' }}>
+              {plant.name}
+            </Text>
+            <View style={styles.priceTag}>
+              <Text style={styles.priceTxt}>${plant.price}</Text>
             </View>
-            <View style={styles.buyBtn}>
-              <Text
-                style={{ color: primary, fontSize: 18, fontWeight: 'bold' }}
-              >
-                Buy
-              </Text>
+          </View>
+          <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>About</Text>
+            <Text
+              style={{
+                color: '#404040',
+                fontSize: 16,
+                lineHeight: 22,
+                marginTop: 10,
+              }}
+            >
+              {plant.about}
+            </Text>
+            <View
+              style={{
+                marginTop: 20,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={styles.borderBtn}>
+                  <Text style={styles.borderBtnTxt}>-</Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    marginHorizontal: 10,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  1
+                </Text>
+                <View style={styles.borderBtn}>
+                  <Text style={styles.borderBtnTxt}>+</Text>
+                </View>
+              </View>
+              <View style={styles.buyBtn}>
+                <Text
+                  style={{ color: primary, fontSize: 18, fontWeight: 'bold' }}
+                >
+                  Buy
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -129,18 +160,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   imgContainer: {
-    flex: 0.45,
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
   detailsContainer: {
-    flex: 0.55,
     backgroundColor: secondary,
-    marginHorizontal: 7,
+    margin: 20,
+    marginTop: 0,
     borderRadius: 20,
-    marginTop: 30,
-    paddingTop: 30,
   },
   line: {
     width: 25,

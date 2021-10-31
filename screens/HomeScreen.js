@@ -30,9 +30,19 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <FontAwesome name='shopping-cart' size={28} color='black' />
       </View>
-      <View style={{ marginTop: 30, flexDirection: 'row' }}>
+      <View
+        style={{
+          marginVertical: 20,
+          flexDirection: 'row',
+          paddingHorizontal: 20,
+        }}
+      >
         <View style={styles.searchContainer}>
-          <FontAwesome name='search' size={25} style={{ marginLeft: 20 }} />
+          <FontAwesome
+            name='search'
+            size={25}
+            style={{ marginHorizontal: 20 }}
+          />
           <TextInput
             placeholder='Search'
             style={styles.searchInput}
@@ -48,8 +58,8 @@ const HomeScreen = ({ navigation }) => {
         columnWrapperStyle={{ justifyContent: 'space-around' }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          marginTop: 10,
           paddingBottom: 50,
+          paddingHorizontal: 10,
         }}
         numColumns={2}
         data={plants}
@@ -62,14 +72,14 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   headerSafeArea: {
     flex: 1,
-    paddingHorizontal: 15,
     backgroundColor: primary,
   },
   header: {
     marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 5,
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
   welcomeTxt: {
     fontSize: 25,
@@ -87,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: 10,
   },
   searchInput: {
     fontSize: 18,

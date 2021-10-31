@@ -47,7 +47,7 @@ const ProductCard = ({ plant }) => {
           >
             <FontAwesome
               name='heart'
-              size={18}
+              size={16}
               color={plant.like ? brand : black}
             />
           </View>
@@ -62,9 +62,7 @@ const ProductCard = ({ plant }) => {
             ${plant.price}
           </Text>
           <View style={styles.btnContainer}>
-            <Text style={{ fontSize: 22, color: primary, fontWeight: 'bold' }}>
-              +
-            </Text>
+            <FontAwesome name='plus' size={13} color='white' />
           </View>
         </View>
       </View>
@@ -76,7 +74,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 225,
     backgroundColor: secondary,
-    // justifyContent: 'center',
     width,
     marginHorizontal: 2,
     borderRadius: 10,
