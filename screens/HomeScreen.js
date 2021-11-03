@@ -28,7 +28,12 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.welcomeTxt}>Welcome to</Text>
           <Text style={styles.shopTxt}>Dwon's Shop</Text>
         </View>
-        <FontAwesome name='shopping-cart' size={28} color='black' />
+        <FontAwesome
+          name='shopping-cart'
+          size={28}
+          color='black'
+          onPress={() => navigation.navigate('Cart')}
+        />
       </View>
       <View
         style={{
