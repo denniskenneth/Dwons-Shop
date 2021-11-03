@@ -14,7 +14,7 @@ import CartCard from '../../components/CartCard';
 import { StyledBtn } from '../../components/styles';
 import plants from './../../data/plants';
 
-const CartScreen = () => {
+const CartScreen = ({ navigation }) => {
   // const CartCard = () => {
   //   return (
   //     <View style={styles.cartCard}>
@@ -56,7 +56,7 @@ const CartScreen = () => {
                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>$50</Text>
               </View>
               <View style={{ marginHorizontal: 30 }}>
-                <StyledBtn>
+                <StyledBtn onPress={() => navigation.navigate('Checkout')}>
                   <Text
                     style={{ color: primary, fontSize: 18, fontWeight: 'bold' }}
                   >
