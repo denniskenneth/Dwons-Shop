@@ -13,6 +13,7 @@ import {
   WelcomeContainer,
   // WelcomeImage,
   Avatar,
+  Text,
 } from '../components/styles';
 
 const WelcomeScreen = ({ navigation, route }) => {
@@ -32,7 +33,11 @@ const WelcomeScreen = ({ navigation, route }) => {
               resizeMode='cover'
               source={require('../assets/img/imgLogo.png')}
             />
+            <StyledBtn onPress={() => navigation.navigate('Home')}>
+              <BtnText>Go To Home</BtnText>
+            </StyledBtn>
             <Line />
+            {/* <Text onPress={() => navigation.navigate('Home')}>Go To Home</Text> */}
             <StyledBtn onPress={() => navigation.navigate('Login')}>
               <BtnText>Logout</BtnText>
             </StyledBtn>

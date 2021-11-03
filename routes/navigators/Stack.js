@@ -33,7 +33,7 @@ const Stack = () => {
             paddingLeft: 20,
           },
         }}
-        initialRouteName='Home'
+        initialRouteName='Login'
       >
         <StackNavigator.Screen
           name='Login'

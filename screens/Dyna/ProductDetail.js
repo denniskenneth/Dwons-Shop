@@ -14,8 +14,7 @@ import { Colors } from './../../components/styles';
 const { primary, secondary, brand, black, tertiary, darklight } = Colors;
 
 // ICONS IMPORT
-import { FontAwesome } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 const screenHeight = Dimensions.get('window').height;
 
