@@ -10,9 +10,8 @@ import {
 const KeyboardAvoidingWrapper = ({ children }) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    style={{ flex: 1}}>
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           {children}

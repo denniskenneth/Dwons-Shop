@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
@@ -31,10 +31,36 @@ import { Octicons, Ionicons, Fontisto, FontAwesome5 } from '@expo/vector-icons';
 // COlors
 const { brand, darklight, primary } = Colors;
 
-const CheckoutScreen = () => {
+const CheckoutScreen = ({ navigation }) => {
+  // MESSAGE STATE
+  const [message, setMessage] = useState();
+  const [messageType, setMessageType] = useState();
+
+  // FORM HANDLER
+  const handleCheckout = () => {
+    handleMessage(null);
+    navigation.navigate('Confirm');
+  };
+
+  const handleMessage = (message, type = 'FAILED') => {
+    setMessage(message);
+    setMessageType(type);
+  };
+
+  // Prompt Function
+  const confirmOrder = () =>
+    Alert.alert('Confirm Order', 'Are You Sure You Wanna Checkout?', [
+      {
+        text: 'No',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      { text: 'Yes', onPress: () => console.log('OK Pressed') },
+    ]);
+
   return (
-    <KeyboardAvoidingWrapper style={{ backgroundColor: primary }}>
-      {/* <StyledContainer> */}
+    <KeyboardAvoidingWrapper>
+      {/* <StyledContainer style={{ padding: 100 }}> */}
 
       <InnerContainer style={{ paddingVertical: 30, marginTop: 50 }}>
         <StatusBar style='dark' />
@@ -46,11 +72,37 @@ const CheckoutScreen = () => {
             email: '',
             address: '',
             phone: '',
-            confirmPassword: '',
-            cardName: '',
             cardNumber: '',
             expire: '',
             ccv: '',
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            values = { ...values };
+            if (
+              values.name == '' ||
+              values.email == '' ||
+              values.address == '' ||
+              (values.phone == '' &&
+                (values.cardNumber == '' ||
+                  values.expire == '' ||
+                  values.ccv == ''))
+            ) {
+              handleMessage('Please fill all the fields');
+              // setSubmitting(false);
+            } else if (
+              values.cardNumber == '' ||
+              values.expire == '' ||
+              values.ccv == ''
+            ) {
+              handleMessage('Please fill in all card detail field');
+              // setSubmitting(false);
+            } else {
+              handleCheckout(values);
+            }
+            // else {
+            // values.email.toLowerCase();
+            // handleSignup(values, setSubmitting);
+            // }
           }}
         >
           {({
@@ -87,7 +139,7 @@ const CheckoutScreen = () => {
                 placeholderTextColor={darklight}
                 onChangeText={handleChange('address')}
                 onBlur={handleBlur('address')}
-                value={values.email.toLowerCase()}
+                value={values.address}
                 // keyboardType='email-address'
               />
               <CustomTextInput
@@ -95,42 +147,47 @@ const CheckoutScreen = () => {
                 icon='device-mobile'
                 placeholder='0592324719'
                 placeholderTextColor={darklight}
-                onChangeText={handleChange('name')}
-                onBlur={handleBlur('name')}
-                value={values.name}
+                onChangeText={handleChange('phone')}
+                onBlur={handleBlur('phone')}
+                value={values.phone}
+                keyboardType='phone-pad'
               />
-              <Line />
-              <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <SubTitle>Card Detail</SubTitle>
-              </View>
+              {/* <Line /> */}
+              {/* <View style={{ flexDirection: 'row', justifyContent: 'center' }}> */}
+              {/* <SubTitle>Card Detail</SubTitle> */}
+              {/* </View> */}
               <CustomTextInput
-                label='Phone Number'
+                label='Credit/Debit Card Number'
                 icon='credit-card'
                 placeholder='8728 9203 5283 9720'
                 placeholderTextColor={darklight}
-                onChangeText={handleChange('name')}
-                onBlur={handleBlur('name')}
-                value={values.name}
+                onChangeText={handleChange('cardNumber')}
+                onBlur={handleBlur('cardNumber')}
+                value={values.cardNumber}
+                keyboardType='number-pad'
               />
               <CustomTextInput
                 label='Expiry Date'
                 icon='calendar'
                 placeholder='10/20'
                 placeholderTextColor={darklight}
-                onChangeText={handleChange('name')}
-                onBlur={handleBlur('name')}
-                value={values.name}
+                onChangeText={handleChange('expire')}
+                onBlur={handleBlur('expire')}
+                value={values.expire}
+                // keyboardType='numeric'
               />
               <CustomTextInput
                 label='CCV'
                 icon='credit-card'
                 placeholder='097'
                 placeholderTextColor={darklight}
-                onChangeText={handleChange('name')}
-                onBlur={handleBlur('name')}
-                value={values.name}
+                onChangeText={handleChange('ccv')}
+                onBlur={handleBlur('ccv')}
+                value={values.ccv}
+                keyboardType='number-pad'
               />
 
+              <MsgBox type={messageType}>{message}</MsgBox>
               <StyledBtn onPress={handleSubmit}>
                 <BtnText>Pay</BtnText>
               </StyledBtn>

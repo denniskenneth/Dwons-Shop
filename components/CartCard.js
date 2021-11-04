@@ -12,14 +12,12 @@ const CartCard = ({ item }) => {
   return (
     <View style={styles.cartCard}>
       <Image source={item.img} style={{ height: 80, width: 80 }} />
-      <View
-        style={{ height: 100, marginLeft: 10, paddingVertical: 20, flex: 1 }}
-      >
-        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
-        <Text style={{ fontSize: 13, color: darklight }}>50 x 20 cm</Text>
-        <Text style={{ fontSize: 17, fontWeight: 'bold' }}>${item.price}</Text>
+      <View>
+        <Text style={{ fontWeight: '700', fontSize: 17 }}>{item.name}</Text>
+        <Text style={{ fontSize: 14, color: darklight, marginVertical: 5 }}>50 x 20 cm</Text>
+        <Text style={{ fontSize: 17, fontWeight: '600' }}>${item.price}</Text>
       </View>
-      <View style={{ marginRight: 20, alignItems: 'center' }}>
+      <View style={{ alignItems: 'center' }}>
         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>3</Text>
         <View style={styles.actionBtn}>
           <AntDesign name='minus' size={24} color='white' />
@@ -32,30 +30,33 @@ const CartCard = ({ item }) => {
 
 const styles = StyleSheet.create({
   cartCard: {
-    height: 100,
-    elevation: 10,
-    shadowOffset: {
-      width: 10,
-      height: 10,
-    },
-    shadowColor: 'black',
     borderRadius: 10,
     backgroundColor: secondary,
-    marginVertical: 10,
+    marginVertical: 15,
     marginHorizontal: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   actionBtn: {
     width: 80,
     height: 30,
     backgroundColor: brand,
-    borderRadius: 30,
-    paddingHorizontal: 5,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    marginTop: 10,
     flexDirection: 'row',
-    justifyContent: 'center',
-    // alignContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 });

@@ -6,6 +6,9 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  TouchableOpacity,
+  Animated,
+  Easing
 } from 'react-native';
 
 // COLORS IMPORT
@@ -19,8 +22,26 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 const screenHeight = Dimensions.get('window').height;
 
 const ProductDetail = ({ navigation, route }) => {
+  let heightValue = new Animated.Value(0)
+
+  Animated.timing(
+    heightValue,
+    {
+      toValue: 1,
+      duration: 1000,
+      delay: 100,
+      easing: Easing.ease,
+      useNativeDriver: true
+    }
+  ).start();
+
+  const height = heightValue.interpolate({
+    inputRange: [1, 2],
+    outputRange: [0, -50],
+  })
+
   const plant = route.params;
-  // console.log(plant);
+  console.log(plant);
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <View style={styles.header}>
@@ -43,18 +64,21 @@ const ProductDetail = ({ navigation, route }) => {
           style={{ resizeMode: 'contain', height: 350, width: 350 }}
         />
       </View>
-      <View>
-        <View
+      <View style={{ marginTop: 10 }}>
+        <Animated.View
           style={{
             backgroundColor: 'gold',
             width: 180,
-            height: 30,
+            height: 25,
             alignItems: 'center',
             justifyContent: 'center',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
             flexDirection: 'row',
             marginLeft: 50,
+            transform: [{
+              translateY: height
+            }]
           }}
         >
           <FontAwesome
@@ -75,32 +99,30 @@ const ProductDetail = ({ navigation, route }) => {
           />
           <FontAwesome name='star' size={14} color='black' />
           <Text style={{ fontSize: 16, fontWeight: '500', marginLeft: 10 }}>
-            Best Chioce
+            Best Choice
           </Text>
-        </View>
+        </Animated.View>
         <View style={styles.detailsContainer}>
           <View
             style={{
-              marginLeft: 20,
-              marginTop: 20,
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
             }}
           >
-            <Text style={{ fontSize: 22, fontWeight: 'bold' }}>
+            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
               {plant.name}
             </Text>
             <View style={styles.priceTag}>
               <Text style={styles.priceTxt}>${plant.price}</Text>
             </View>
           </View>
-          <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>About</Text>
+          <View style={{ marginTop: 15 }}>
+            <Text style={{ fontSize: 20, fontWeight: '600', color: darklight }}>About</Text>
             <Text
               style={{
                 color: '#404040',
-                fontSize: 16,
+                fontSize: 18,
                 lineHeight: 22,
                 marginTop: 10,
               }}
@@ -115,29 +137,29 @@ const ProductDetail = ({ navigation, route }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={styles.borderBtn}>
-                  <Text style={styles.borderBtnTxt}>-</Text>
-                </View>
+                <TouchableOpacity style={styles.borderBtn}>
+                  <FontAwesome name='minus' size={20} color='black' />
+                </TouchableOpacity>
                 <Text
                   style={{
                     fontSize: 20,
-                    marginHorizontal: 10,
+                    marginHorizontal: 20,
                     fontWeight: 'bold',
                   }}
                 >
                   1
                 </Text>
-                <View style={styles.borderBtn}>
-                  <Text style={styles.borderBtnTxt}>+</Text>
-                </View>
+                <TouchableOpacity style={styles.borderBtn}>
+                  <FontAwesome name='plus' size={20} color='black' />
+                </TouchableOpacity>
               </View>
-              <View style={styles.buyBtn}>
+              <TouchableOpacity style={styles.buyBtn}>
                 <Text
                   style={{ color: primary, fontSize: 18, fontWeight: 'bold' }}
                 >
                   Buy
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -150,7 +172,6 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
     backgroundColor: primary,
-    // height: screenHeight,
   },
   header: {
     paddingHorizontal: 20,
@@ -167,7 +188,16 @@ const styles = StyleSheet.create({
     backgroundColor: secondary,
     margin: 20,
     marginTop: 0,
+    padding: 20,
     borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   line: {
     width: 25,
@@ -179,29 +209,24 @@ const styles = StyleSheet.create({
   priceTag: {
     backgroundColor: brand,
     width: 80,
-    height: 40,
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
+    height: 30,
+    borderRadius: 5,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   priceTxt: {
-    marginLeft: 15,
     color: primary,
     fontWeight: 'bold',
     fontSize: 16,
   },
   borderBtn: {
     borderColor: '#404040',
-    borderRadius: 5,
+    borderRadius: 10,
     borderWidth: 1,
-    height: 40,
+    height: 50,
     width: 60,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  borderBtnTxt: {
-    fontWeight: 'bold',
-    fontSize: 28,
   },
   buyBtn: {
     width: 150,
@@ -209,7 +234,7 @@ const styles = StyleSheet.create({
     backgroundColor: brand,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 30,
+    borderRadius: 10,
   },
 });
 

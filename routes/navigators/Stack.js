@@ -10,6 +10,7 @@ import SignupScreen from '../../screens/SignupScreen';
 import ProductDetail from './../../screens/Dyna/ProductDetail';
 import CartScreen from './../../screens/Dyna/CartScreen';
 import CheckoutScreen from '../../screens/Dyna/CheckoutScreen';
+import ConfirmationScreen from '../../screens/ConfirmationScreen';
 
 import { Colors } from '../../components/styles';
 import { HomeDrawer } from './Drawer';
@@ -80,6 +81,7 @@ export const Main = () => (
       />
       <Stack.Screen name='Cart' component={CartScreen} />
       <Stack.Screen name='Checkout' component={CheckoutScreen} />
+      <Stack.Screen name='Confirm' component={ConfirmationScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
