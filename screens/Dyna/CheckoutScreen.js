@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 // IMPORT CUSTOM COMPONENT
@@ -39,7 +39,7 @@ const CheckoutScreen = ({ navigation }) => {
   // FORM HANDLER
   const handleCheckout = () => {
     handleMessage(null);
-    navigation.navigate('Confirm');
+    confirmOrder();
   };
 
   const handleMessage = (message, type = 'FAILED') => {
@@ -53,9 +53,8 @@ const CheckoutScreen = ({ navigation }) => {
       {
         text: 'No',
         onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
       },
-      { text: 'Yes', onPress: () => console.log('OK Pressed') },
+      { text: 'Yes', onPress: () => navigation.navigate('Confirm') },
     ]);
 
   return (
