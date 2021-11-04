@@ -82,4 +82,4 @@ export const Main = () => (
       <Stack.Screen name='Checkout' component={CheckoutScreen} />
     </Stack.Navigator>
   </NavigationContainer>
-)
+);

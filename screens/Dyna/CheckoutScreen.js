@@ -33,113 +33,112 @@ const { brand, darklight, primary } = Colors;
 
 const CheckoutScreen = () => {
   return (
-    <KeyboardAvoidingWrapper>
-      <StyledContainer style={{ padding: 100 }}>
-        <StatusBar style='dark' />
-        <InnerContainer>
-          <PageTitle>Dwon's Shop</PageTitle>
-          <SubTitle>Checkout Page</SubTitle>
-          <Formik
-            initialValues={{
-              name: '',
-              email: '',
-              address: '',
-              phone: '',
-              confirmPassword: '',
-              cardName: '',
-              cardNumber: '',
-              expire: '',
-              ccv: '',
-            }}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              isSubmitting,
-            }) => (
-              <StyledFormArea style={{}}>
-                <CustomTextInput
-                  label='Full Name'
-                  icon='person'
-                  placeholder='John Doe'
-                  placeholderTextColor={darklight}
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                  value={values.name}
-                />
-                <CustomTextInput
-                  label='Email Address'
-                  icon='mail'
-                  placeholder='example@example.com'
-                  placeholderTextColor={darklight}
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email.toLowerCase()}
-                  keyboardType='email-address'
-                />
-                <CustomTextInput
-                  label='Address'
-                  icon='location'
-                  placeholder='12 UPSA Road'
-                  placeholderTextColor={darklight}
-                  onChangeText={handleChange('address')}
-                  onBlur={handleBlur('address')}
-                  value={values.email.toLowerCase()}
-                  // keyboardType='email-address'
-                />
-                <CustomTextInput
-                  label='Phone Number'
-                  icon='device-mobile'
-                  placeholder='0592324719'
-                  placeholderTextColor={darklight}
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                  value={values.name}
-                />
-                <Line />
-                <View
-                  style={{ flexDirection: 'row', justifyContent: 'center' }}
-                >
-                  <SubTitle>Card Detail</SubTitle>
-                </View>
-                <CustomTextInput
-                  label='Phone Number'
-                  icon='credit-card'
-                  placeholder='8728 9203 5283 9720'
-                  placeholderTextColor={darklight}
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                  value={values.name}
-                />
-                <CustomTextInput
-                  label='Expiry Date'
-                  icon='calendar'
-                  placeholder='10/20'
-                  placeholderTextColor={darklight}
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                  value={values.name}
-                />
-                <CustomTextInput
-                  label='CCV'
-                  icon='credit-card'
-                  placeholder='097'
-                  placeholderTextColor={darklight}
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                  value={values.name}
-                />
+    <KeyboardAvoidingWrapper style={{ backgroundColor: primary }}>
+      {/* <StyledContainer> */}
 
-                <StyledBtn onPress={handleSubmit}>
-                  <BtnText>Pay</BtnText>
-                </StyledBtn>
-              </StyledFormArea>
-            )}
-          </Formik>
-        </InnerContainer>
-      </StyledContainer>
+      <InnerContainer style={{ paddingVertical: 30, marginTop: 50 }}>
+        <StatusBar style='dark' />
+        <PageTitle>Dwon's Shop</PageTitle>
+        <SubTitle>Checkout Page</SubTitle>
+        <Formik
+          initialValues={{
+            name: '',
+            email: '',
+            address: '',
+            phone: '',
+            confirmPassword: '',
+            cardName: '',
+            cardNumber: '',
+            expire: '',
+            ccv: '',
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            isSubmitting,
+          }) => (
+            <StyledFormArea style={{}}>
+              <CustomTextInput
+                label='Full Name'
+                icon='person'
+                placeholder='John Doe'
+                placeholderTextColor={darklight}
+                onChangeText={handleChange('name')}
+                onBlur={handleBlur('name')}
+                value={values.name}
+              />
+              <CustomTextInput
+                label='Email Address'
+                icon='mail'
+                placeholder='example@example.com'
+                placeholderTextColor={darklight}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email.toLowerCase()}
+                keyboardType='email-address'
+              />
+              <CustomTextInput
+                label='Address'
+                icon='location'
+                placeholder='12 UPSA Road'
+                placeholderTextColor={darklight}
+                onChangeText={handleChange('address')}
+                onBlur={handleBlur('address')}
+                value={values.email.toLowerCase()}
+                // keyboardType='email-address'
+              />
+              <CustomTextInput
+                label='Phone Number'
+                icon='device-mobile'
+                placeholder='0592324719'
+                placeholderTextColor={darklight}
+                onChangeText={handleChange('name')}
+                onBlur={handleBlur('name')}
+                value={values.name}
+              />
+              <Line />
+              <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                <SubTitle>Card Detail</SubTitle>
+              </View>
+              <CustomTextInput
+                label='Phone Number'
+                icon='credit-card'
+                placeholder='8728 9203 5283 9720'
+                placeholderTextColor={darklight}
+                onChangeText={handleChange('name')}
+                onBlur={handleBlur('name')}
+                value={values.name}
+              />
+              <CustomTextInput
+                label='Expiry Date'
+                icon='calendar'
+                placeholder='10/20'
+                placeholderTextColor={darklight}
+                onChangeText={handleChange('name')}
+                onBlur={handleBlur('name')}
+                value={values.name}
+              />
+              <CustomTextInput
+                label='CCV'
+                icon='credit-card'
+                placeholder='097'
+                placeholderTextColor={darklight}
+                onChangeText={handleChange('name')}
+                onBlur={handleBlur('name')}
+                value={values.name}
+              />
+
+              <StyledBtn onPress={handleSubmit}>
+                <BtnText>Pay</BtnText>
+              </StyledBtn>
+            </StyledFormArea>
+          )}
+        </Formik>
+      </InnerContainer>
+      {/* </StyledContainer> */}
     </KeyboardAvoidingWrapper>
   );
 };
