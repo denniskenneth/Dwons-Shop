@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 
 // IMPORT CUSTOM COMPONENTS
@@ -15,9 +15,18 @@ import {
   Avatar,
   Text,
 } from '../components/styles';
+import { UserContext } from '../context/UserContext';
 
 const WelcomeScreen = ({ navigation, route }) => {
-  const { name, email } = route.params;
+  const { logOut, logIn } = useContext(UserContext)
+  const { name, email, _id } = route.params;
+
+  const handleLogout = async () => {
+    navigation.navigate('Login')
+
+    logOut()
+  }
+
   return (
     <>
       <StatusBar style='dark' />
@@ -33,12 +42,12 @@ const WelcomeScreen = ({ navigation, route }) => {
               resizeMode='cover'
               source={require('../assets/img/imgLogo.png')}
             />
-            <StyledBtn onPress={() => navigation.navigate('Home')}>
+            <StyledBtn onPress={() => logIn(_id)}>
               <BtnText>Go To Home</BtnText>
             </StyledBtn>
             <Line />
             {/* <Text onPress={() => navigation.navigate('Home')}>Go To Home</Text> */}
-            <StyledBtn onPress={() => navigation.navigate('Login')}>
+            <StyledBtn onPress={handleLogout}>
               <BtnText>Logout</BtnText>
             </StyledBtn>
           </StyledFormArea>

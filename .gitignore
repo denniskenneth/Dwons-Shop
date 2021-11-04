@@ -1,5 +1,6 @@
 node_modules/
 .expo/
+.app 2.json.icloud
 npm-debug.*
 *.jks
 *.p8

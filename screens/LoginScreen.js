@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { UserContext } from '../context/UserContext'
 
 // IMPORT CUSTOM COMPONENTS
 import { Formik } from 'formik';

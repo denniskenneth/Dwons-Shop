@@ -20,7 +20,7 @@ const screenHeight = Dimensions.get('window').height;
 
 const ProductDetail = ({ navigation, route }) => {
   const plant = route.params;
-  console.log(plant);
+  // console.log(plant);
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <View style={styles.header}>

@@ -3,26 +3,26 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // IMPORT SCREENS
-// import HomeScreen from './screens/HomeScreen';
 import LoginScreen from '../../screens/LoginScreen';
 import WelcomeScreen from '../../screens/WelcomeScreen';
 import SignupScreen from '../../screens/SignupScreen';
-import HomeScreen from '../../screens/HomeScreen';
+// import HomeScreen from '../../screens/HomeScreen';
 import ProductDetail from './../../screens/Dyna/ProductDetail';
 import CartScreen from './../../screens/Dyna/CartScreen';
 import CheckoutScreen from '../../screens/Dyna/CheckoutScreen';
 
 import { Colors } from '../../components/styles';
+import { HomeDrawer } from './Drawer';
 
 // Colors
 const { tertiary } = Colors;
 
-const StackNavigator = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
-const Stack = () => {
+export const Onboarding = () => {
   return (
     <NavigationContainer style={{ flex: 1 }}>
-      <StackNavigator.Navigator
+      <Stack.Navigator
         screenOptions={{
           headerStyle: {
             backgroundColor: 'transparent',
@@ -36,27 +36,50 @@ const Stack = () => {
         }}
         initialRouteName='Login'
       >
-        <StackNavigator.Screen
+        <Stack.Screen
           name='Login'
           component={LoginScreen}
           style={{ flex: 1 }}
         />
-        <StackNavigator.Screen name='Signup' component={SignupScreen} />
-        <StackNavigator.Screen name='Welcome' component={WelcomeScreen} />
-        <StackNavigator.Screen name='Home' component={HomeScreen} />
-        <StackNavigator.Screen
-          name='Detail'
-          component={ProductDetail}
-          options={{
-            // headerLeft: () => <></>,
-            headerShown: false,
-          }}
-        />
-        <StackNavigator.Screen name='Cart' component={CartScreen} />
-        <StackNavigator.Screen name='Checkout' component={CheckoutScreen} />
-      </StackNavigator.Navigator>
+        <Stack.Screen name='Signup' component={SignupScreen} />
+        <Stack.Screen name='Welcome' component={WelcomeScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default Stack;
+export const Main = () => (
+  <NavigationContainer>
+    <Stack.Navigator
+      initialRouteName='HomeDrawer'
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: 'transparent',
+        },
+        headerTintColor: tertiary,
+        headerTransparent: true,
+        title: '',
+        headerLeftContainerStyle: {
+          paddingLeft: 20,
+        },
+      }}
+    >
+      <Stack.Screen
+        name='HomeDrawer'
+        component={HomeDrawer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='Detail'
+        component={ProductDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name='Cart' component={CartScreen} />
+      <Stack.Screen name='Checkout' component={CheckoutScreen} />
+    </Stack.Navigator>
+  </NavigationContainer>
+)
