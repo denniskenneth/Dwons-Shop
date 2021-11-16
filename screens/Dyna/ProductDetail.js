@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Animated,
-  Easing
+  Easing,
 } from 'react-native';
 
 // COLORS IMPORT
@@ -22,26 +22,35 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 const screenHeight = Dimensions.get('window').height;
 
 const ProductDetail = ({ navigation, route }) => {
-  let heightValue = new Animated.Value(0)
+  const [amount, setAmount] = useState(1);
 
-  Animated.timing(
-    heightValue,
-    {
-      toValue: 1,
-      duration: 1000,
-      delay: 100,
-      easing: Easing.ease,
-      useNativeDriver: true
-    }
-  ).start();
+  let heightValue = new Animated.Value(0);
+
+  Animated.timing(heightValue, {
+    toValue: 1,
+    duration: 1000,
+    delay: 100,
+    easing: Easing.ease,
+    useNativeDriver: true,
+  }).start();
 
   const height = heightValue.interpolate({
     inputRange: [1, 2],
     outputRange: [0, -50],
-  })
+  });
 
   const plant = route.params;
-  console.log(plant);
+
+  const handleAdd = () => {
+    setAmount(amount + 1)
+  }
+
+  const handleMinus = () => {
+    if (amount > 1) {
+      setAmount(amount - 1)
+    }
+  }
+
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <View style={styles.header}>
@@ -76,9 +85,11 @@ const ProductDetail = ({ navigation, route }) => {
             borderTopRightRadius: 10,
             flexDirection: 'row',
             marginLeft: 50,
-            transform: [{
-              translateY: height
-            }]
+            transform: [
+              {
+                translateY: height,
+              },
+            ],
           }}
         >
           <FontAwesome
@@ -118,7 +129,9 @@ const ProductDetail = ({ navigation, route }) => {
             </View>
           </View>
           <View style={{ marginTop: 15 }}>
-            <Text style={{ fontSize: 20, fontWeight: '600', color: darklight }}>About</Text>
+            <Text style={{ fontSize: 20, fontWeight: '600', color: darklight }}>
+              About
+            </Text>
             <Text
               style={{
                 color: '#404040',
@@ -137,7 +150,7 @@ const ProductDetail = ({ navigation, route }) => {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <TouchableOpacity style={styles.borderBtn}>
+                <TouchableOpacity style={styles.borderBtn} onPress={handleMinus}>
                   <FontAwesome name='minus' size={20} color='black' />
                 </TouchableOpacity>
                 <Text
@@ -147,9 +160,9 @@ const ProductDetail = ({ navigation, route }) => {
                     fontWeight: 'bold',
                   }}
                 >
-                  1
+                  {amount}
                 </Text>
-                <TouchableOpacity style={styles.borderBtn}>
+                <TouchableOpacity style={styles.borderBtn} onPress={handleAdd}>
                   <FontAwesome name='plus' size={20} color='black' />
                 </TouchableOpacity>
               </View>
@@ -157,7 +170,7 @@ const ProductDetail = ({ navigation, route }) => {
                 <Text
                   style={{ color: primary, fontSize: 18, fontWeight: 'bold' }}
                 >
-                  Buy
+                  Add to cart
                 </Text>
               </TouchableOpacity>
             </View>
@@ -190,7 +203,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     padding: 20,
     borderRadius: 20,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 4,
